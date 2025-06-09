@@ -54,3 +54,44 @@ document.addEventListener("DOMContentLoaded", function () {
         form.dispatchEvent(new Event("submit"));
     });
 });
+
+//-------------------------------------------
+
+
+const form = document.getElementById("myForm");
+const button = document.getElementById("inviaButton");
+
+// Ottieni tutti i campi obbligatori
+const inputs = form.querySelectorAll("input, textarea");
+
+function validateForm() {
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (input.type === "email") {
+            // Controllo email valido
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(input.value.trim())) {
+                isValid = false;
+            }
+        } else {
+            if (input.value.trim() === "") {
+                isValid = false;
+            }
+        }
+    });
+
+    button.disabled = !isValid;
+}
+
+// Aggiungi ascoltatori su ogni campo
+inputs.forEach(input => {
+    input.addEventListener("input", validateForm);
+});
+
+// Disabilita invio form se non valido (opzionale ma consigliato)
+form.addEventListener("submit", function (e) {
+    if (button.disabled) {
+        e.preventDefault();
+    }
+});

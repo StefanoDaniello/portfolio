@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Messaggio:", messaggio);
     console.log("Soggetto:", subject);
 
+    const recaptchaResponse = grecaptcha.getResponse(); // Ottiene il token dal widget
+    if (!recaptchaResponse) {
+      alert("Per favore, completa la verifica reCAPTCHA.");
+      return; // Blocca l'invio se l'utente non ha verificato
+    }
+
     const emailData = {
       service_id: "service_lgaigdl",
       template_id: "template_sngknjd",
@@ -29,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         subject,
         cellulare,
         messaggio,
-        reCAPTCHA: "6LetIVwrAAAAANw6IBWxfw4in_fGgUfmVb_fpnVW",
+        reCAPTCHA: recaptchaResponse,
       },
     };
 

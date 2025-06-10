@@ -486,5 +486,6 @@
       });
     },
   };
+
   imJs.m();
 })(jQuery, window);

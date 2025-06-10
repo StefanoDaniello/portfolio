@@ -1,0 +1,23 @@
+// .vscode/settings.json
+{
+  "liveServer.settings.port": 5500, // Puoi lasciare il tuo numero di porta preferito
+  "liveServer.settings.root": "/",  // Assicurati che sia la root del tuo progetto
+  "liveServer.settings.CustomBrowser": "chrome", // Il tuo browser preferito
+  "liveServer.settings.NoBrowser": false,
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "",
+  "liveServer.settings.host": "127.0.0.1",
+  "liveServer.settings.file": "index.html", // Questo è importante: il file predefinito per la root
+  "liveServer.settings.wait": 100,
+  "liveServer.settings.mount": [],
+  "liveServer.settings.proxy": {},
+  "liveServer.settings.ignore": [
+    ".vscode/**",
+    ".git/**"
+  ],
+  "liveServer.settings.https": {
+    "enable": false
+  },
+  "liveServer.settings.fullReload": true,
+  "liveServer.settings.use", // <= QUESTO È FONDAMENTALE
+  "liveServer.settings.useServiceWorker": false
+}

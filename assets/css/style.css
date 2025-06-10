@@ -275,6 +275,9 @@ h6 a,
   .h1 {
     font-size: 38px;
   }
+  .bg_image h1 {
+    top: 25% !important;
+  }
 
   h2,
   .h2 {
@@ -301,6 +304,9 @@ h6 a,
   h1,
   .h1 {
     font-size: 34px;
+  }
+  .bg_image h1 {
+    top: 25% !important;
   }
 
   h2,
@@ -6954,6 +6960,11 @@ Background Image
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+}
+.bg_image h1 {
+  position: absolute;
+  top: 10%;
+  left: 0;
 }
 
 .bg_image--1 {
@@ -19174,6 +19185,9 @@ span.sr-only {
 
 .footer-area .logo a img {
   max-height: 100px;
+  width: auto;
+  border-radius: 100%;
+  overflow: hidden;
 }
 
 /*-----------------------

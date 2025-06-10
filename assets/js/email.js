@@ -1,62 +1,63 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("myForm");
-    const inviaButton = document.getElementById("inviaButton");
+  const form = document.getElementById("myForm");
+  const inviaButton = document.getElementById("inviaButton");
 
-    form.addEventListener("submit", async function (event) {
-        event.preventDefault();
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-        console.log("Submit button clicked");
+    console.log("Submit button clicked");
 
-        const nome = document.getElementById("contact-name").value;
-        const email = document.getElementById("contact-email").value;
-        const subject = document.getElementById("subject").value
-        const cellulare = document.getElementById("contact-phone").value;
-        const messaggio = document.getElementById("contact-message").value;
+    const nome = document.getElementById("contact-name").value;
+    const email = document.getElementById("contact-email").value;
+    const subject = document.getElementById("subject").value;
+    const cellulare = document.getElementById("contact-phone").value;
+    const messaggio = document.getElementById("contact-message").value;
 
-        console.log("Dati registrati:");
-        console.log("Nome:", nome);
-        console.log("Email:", email);
-        console.log("Cellulare:", cellulare);
-        console.log("Messaggio:", messaggio);
-        console.log("Soggetto:", subject)
+    console.log("Dati registrati:");
+    console.log("Nome:", nome);
+    console.log("Email:", email);
+    console.log("Cellulare:", cellulare);
+    console.log("Messaggio:", messaggio);
+    console.log("Soggetto:", subject);
 
-        const emailData = {
-            service_id: 'ServizioMio2',
-            template_id: 'TemplateMio',
-            user_id: 'DYAuk3nJ1S4O-Y948',
-            template_params: {
-                nome,
-                email,
-                subject,
-                cellulare,
-                messaggio
-            },
-        };
+    const emailData = {
+      service_id: "service_lgaigdl",
+      template_id: "template_sngknjd",
+      template_params: {
+        nome,
+        email,
+        subject,
+        cellulare,
+        messaggio,
+      },
+    };
 
-        try {
-            await emailjs.send(emailData.service_id, emailData.template_id, emailData.template_params, emailData.user_id);
-            const aziendaMessage = document.getElementById("aziendaMessage");
-            aziendaMessage.textContent = "Informazioni inviate con successo!";
+    try {
+      await emailjs.send(
+        emailData.service_id,
+        emailData.template_id,
+        emailData.template_params
+      );
+      const aziendaMessage = document.getElementById("aziendaMessage");
+      aziendaMessage.textContent = "Informazioni inviate con successo!";
 
-            document.getElementById("contact-name").value = '';
-            document.getElementById("contact-email").value = '';
-            document.getElementById("subject").value = '';
-            document.getElementById("contact-phone").value = '';
-            document.getElementById("contact-message").value = '';
+      document.getElementById("contact-name").value = "";
+      document.getElementById("contact-email").value = "";
+      document.getElementById("subject").value = "";
+      document.getElementById("contact-phone").value = "";
+      document.getElementById("contact-message").value = "";
+    } catch (error) {
+      console.error("Errore nell'invio dell'email:", error);
+    }
+  });
 
-        } catch (error) {
-            console.error("Errore nell'invio dell'email:", error);
-        }
-    });
-
-    inviaButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        form.dispatchEvent(new Event("submit"));
-    });
+  inviaButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    form.dispatchEvent(new Event("submit"));
+  });
 });
 
 //-------------------------------------------
-
 
 const form = document.getElementById("myForm");
 const button = document.getElementById("inviaButton");
@@ -65,33 +66,33 @@ const button = document.getElementById("inviaButton");
 const inputs = form.querySelectorAll("input, textarea");
 
 function validateForm() {
-    let isValid = true;
+  let isValid = true;
 
-    inputs.forEach(input => {
-        if (input.type === "email") {
-            // Controllo email valido
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(input.value.trim())) {
-                isValid = false;
-            }
-        } else {
-            if (input.value.trim() === "") {
-                isValid = false;
-            }
-        }
-    });
+  inputs.forEach((input) => {
+    if (input.type === "email") {
+      // Controllo email valido
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(input.value.trim())) {
+        isValid = false;
+      }
+    } else {
+      if (input.value.trim() === "") {
+        isValid = false;
+      }
+    }
+  });
 
-    button.disabled = !isValid;
+  button.disabled = !isValid;
 }
 
 // Aggiungi ascoltatori su ogni campo
-inputs.forEach(input => {
-    input.addEventListener("input", validateForm);
+inputs.forEach((input) => {
+  input.addEventListener("input", validateForm);
 });
 
 // Disabilita invio form se non valido (opzionale ma consigliato)
 form.addEventListener("submit", function (e) {
-    if (button.disabled) {
-        e.preventDefault();
-    }
+  if (button.disabled) {
+    e.preventDefault();
+  }
 });

@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         subject,
         cellulare,
         messaggio,
+        reCAPTCHA: "6LetIVwrAAAAANw6IBWxfw4in_fGgUfmVb_fpnVW",
       },
     };
 

@@ -115,19 +115,26 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("input", updateSubmitButtonState);
   });
 
-  // Inizializza lo stato del pulsante al caricamento della pagina
-  // Questo deve essere chiamato DOPO che lo script reCAPTCHA è caricato
-  // e il widget è stato renderizzato.
-  // reCAPTCHA ha un callback `onload` o puoi usare `grecaptcha.ready`
-  grecaptcha.ready(function () {
-    updateSubmitButtonState();
-  });
+  // --- CALLBACK DI RECAPTCHA: Chiamata quando l'API è caricata e pronta ---
+  window.recaptchaLoaded = function () {
+    console.log("reCAPTCHA API caricata e pronta!");
+    // Questa funzione viene chiamata quando l'API è pronta.
+    // Ora, `grecaptcha.getResponse()` dovrebbe essere disponibile.
+    updateSubmitButtonState(); // Inizializza lo stato del pulsante
+  };
 
-  // Funzione chiamata da reCAPTCHA quando la verifica è completata
-  // (per reCAPTCHA v2 "Non sono un robot")
-  window.recaptchaCallback = function () {
-    console.log("reCAPTCHA callback fired!");
-    updateSubmitButtonState();
+  // --- CALLBACK DI RECAPTCHA: Chiamata quando l'utente completa la verifica ---
+  window.recaptchaVerified = function (response) {
+    console.log("reCAPTCHA verificato con successo! Token:", response);
+    // Questo `response` è il token, ma lo prendiamo da grecaptcha.getResponse()
+    // per coerenza nella funzione updateSubmitButtonState.
+    updateSubmitButtonState(); // Aggiorna lo stato del pulsante dopo la verifica
+  };
+
+  // --- CALLBACK DI RECAPTCHA: Chiamata quando il token scade ---
+  window.recaptchaExpired = function () {
+    console.warn("reCAPTCHA token scaduto. Per favore, rifai la verifica.");
+    updateSubmitButtonState(); // Disabilita il pulsante o chiedi nuova verifica
   };
 
   // Disabilita invio form se non valido (opzionale ma consigliato)

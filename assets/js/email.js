@@ -1,60 +1,127 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("myForm");
   const inviaButton = document.getElementById("inviaButton");
+  const inputs = form.querySelectorAll("input, textarea"); // Tutti gli input e textarea del form
 
-  // Funzione per aggiornare lo stato del pulsante "Invia"
-  // Verrà chiamata dopo la validazione dei campi e dopo la verifica reCAPTCHA
-  function updateSubmitButtonState() {
-    let formFieldsValid = true;
-
-    // Controlla la validità dei campi del modulo
-    inputs.forEach((input) => {
-      if (input.type === "email") {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(input.value.trim())) {
-          formFieldsValid = false;
-        }
-      } else {
-        if (input.value.trim() === "") {
-          formFieldsValid = false;
-        }
+  // Funzione per mostrare un messaggio di errore per un campo specifico
+  function showError(inputElement, message) {
+    const formGroup = inputElement.closest(".form-group");
+    if (formGroup) {
+      formGroup.classList.add("error"); // Aggiunge la classe per il bordo rosso
+      const errorMessageDiv = formGroup.querySelector(".error-message");
+      if (errorMessageDiv) {
+        errorMessageDiv.textContent = message;
       }
-    });
-
-    // Controlla se il token reCAPTCHA è disponibile
-    // grecaptcha.getResponse() restituisce una stringa se verificato, vuota altrimenti
-    const recaptchaVerified = grecaptcha.getResponse() !== "";
-
-    // Il pulsante è abilitato solo se tutti i campi sono validi E reCAPTCHA è verificato
-    inviaButton.disabled = !(formFieldsValid && recaptchaVerified);
-    // console.log(
-    //   `Form Fields Valid: ${formFieldsValid}, reCAPTCHA Verified: ${recaptchaVerified}, Button Disabled: ${inviaButton.disabled}`
-    // );
+    }
   }
+
+  // Funzione per nascondere un messaggio di errore per un campo specifico
+  function hideError(inputElement) {
+    const formGroup = inputElement.closest(".form-group");
+    if (formGroup) {
+      formGroup.classList.remove("error"); // Rimuove la classe del bordo rosso
+      const errorMessageDiv = formGroup.querySelector(".error-message");
+      if (errorMessageDiv) {
+        errorMessageDiv.textContent = ""; // Svuota il messaggio di errore
+      }
+    }
+  }
+
+  // Funzione di validazione per un singolo campo
+  function validateInput(input) {
+    let isValid = true;
+    let errorMessage = "";
+
+    if (input.value.trim() === "") {
+      isValid = false;
+      errorMessage = "Questo campo non può essere vuoto.";
+    } else if (input.id === "contact-email") {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(input.value.trim())) {
+        isValid = false;
+        errorMessage = "Inserisci un'email valida.";
+      }
+    }
+
+    if (!isValid) {
+      showError(input, errorMessage);
+    } else {
+      hideError(input);
+    }
+    return isValid;
+  }
+
+  // Aggiungi ascoltatori di input per nascondere gli errori in tempo reale
+  inputs.forEach((input) => {
+    input.addEventListener("input", function () {
+      hideError(input); // Nascondi l'errore appena l'utente digita
+    });
+    // Puoi anche aggiungere un listener 'blur' per validare quando l'utente esce dal campo
+    // input.addEventListener('blur', function() {
+    //   validateInput(input);
+    // });
+  });
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     console.log("Submit button clicked");
 
+    let formValid = true;
+    let firstInvalidInput = null; // Per lo scroll
+
+    // Pulisci tutti gli errori prima di una nuova validazione
+    inputs.forEach((input) => hideError(input));
+    hideError(document.querySelector(".g-recaptcha")); // Puliamo anche l'eventuale errore del captcha
+
+    // Valida tutti i campi
+    inputs.forEach((input) => {
+      if (!validateInput(input)) {
+        formValid = false;
+        if (!firstInvalidInput) {
+          firstInvalidInput = input; // Salva il primo input non valido
+        }
+      }
+    });
+
+    // Valida reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+    const recaptchaContainer = document.querySelector(".g-recaptcha");
+    if (!recaptchaResponse) {
+      formValid = false;
+      showError(
+        recaptchaContainer,
+        "Per favore, completa la verifica reCAPTCHA."
+      );
+      if (!firstInvalidInput) {
+        firstInvalidInput = recaptchaContainer; // Se il captcha è il primo errore
+      }
+    } else {
+      hideError(recaptchaContainer);
+    }
+
+    // Se il form non è valido, blocca l'invio e scorri
+    if (!formValid) {
+      if (firstInvalidInput) {
+        // Scorrere fino al primo elemento con errore
+        firstInvalidInput.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+      const aziendaMessage = document.getElementById("aziendaMessage");
+      aziendaMessage.textContent =
+        "Compila tutti i campi obbligatori e completa il reCAPTCHA.";
+      aziendaMessage.style.color = "red";
+      return; // Blocca l'invio del form
+    }
+
+    // Se il form è valido, procedi con l'invio (il resto del tuo codice emailjs)
     const nome = document.getElementById("contact-name").value;
     const email = document.getElementById("contact-email").value;
     const subject = document.getElementById("subject").value;
     const cellulare = document.getElementById("contact-phone").value;
     const messaggio = document.getElementById("contact-message").value;
-
-    console.log("Dati registrati:");
-    console.log("Nome:", nome);
-    console.log("Email:", email);
-    console.log("Cellulare:", cellulare);
-    console.log("Messaggio:", messaggio);
-    console.log("Soggetto:", subject);
-
-    const recaptchaResponse = grecaptcha.getResponse(); // Ottiene il token dal widget
-    if (!recaptchaResponse) {
-      alert("Per favore, completa la verifica reCAPTCHA.");
-      return; // Blocca l'invio se l'utente non ha verificato
-    }
 
     const emailData = {
       service_id: "service_lgaigdl",
@@ -80,11 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
       aziendaMessage.textContent = "Informazioni inviate con successo!";
       aziendaMessage.style.color = "green";
 
-      document.getElementById("contact-name").value = "";
-      document.getElementById("contact-email").value = "";
-      document.getElementById("subject").value = "";
-      document.getElementById("contact-phone").value = "";
-      document.getElementById("contact-message").value = "";
+      // Pulisci i campi
+      inputs.forEach((input) => (input.value = ""));
 
       // Resetta reCAPTCHA e riabilita/disabilita il pulsante
       grecaptcha.reset();
@@ -96,24 +160,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "Si è verificato un errore durante l'invio. Riprova.";
       aziendaMessage.style.color = "red"; // Messaggio di errore rosso
       // Riabilita il pulsante in caso di errore
-      inviaButton.disabled = false;
     }
   });
 
-  inviaButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    form.dispatchEvent(new Event("submit"));
-  });
-
   //-------------------------------------------
-
-  // Ottieni tutti i campi obbligatori
-  const inputs = form.querySelectorAll("input, textarea");
-
-  // Aggiungi ascoltatori su ogni campo
-  inputs.forEach((input) => {
-    input.addEventListener("input", updateSubmitButtonState);
-  });
 
   // --- CALLBACK DI RECAPTCHA: Chiamata quando l'utente completa la verifica ---
   window.recaptchaVerified = function (response) {

@@ -5179,6 +5179,9 @@ ol ul {
 }
 
 @media only screen and (max-width: 575px) {
+  .tab-content-wrapper .tab-content {
+    padding: 45px 0px;
+  }
   .ptb_mobile--5 {
     padding: 5px 0 !important;
   }
@@ -6286,6 +6289,13 @@ figure {
 
 form {
   margin: 0;
+}
+
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Il contenitore occupa il 100% */
 }
 
 fieldset {
@@ -13149,12 +13159,25 @@ button.rn-btn.thumbs-icon svg {
   margin-top: -7px;
 }
 
-.rn-btn:disabled {
+/* Colore del bordo per gli input con errore */
+.form-group.error input,
+.form-group.error textarea {
+  border-color: var(--color-primary) !important; /* Usa il tuo colore primario per l'errore */
+}
+
+/* Stile per i messaggi di errore */
+.error-message {
+  color: var(--color-primary); /* Colore per il testo del messaggio di errore */
+  font-size: 0.85em;
+  margin-top: 5px;
+  display: block; /* Assicurati che il messaggio vada a capo */
+}
+/* .rn-btn:disabled {
   background: linear-gradient(145deg, #676c75, #23272b);
   transform: none !important;
   cursor: not-allowed;
   color: #ff6e9a;
-}
+} */
 
 .button-style .main-page-wrapper {
   position: relative;
@@ -23010,13 +23033,11 @@ input[type="number"] {
     margin-right: 10px;
   }
   .tab-content-wrapper .tab-content {
-    padding: 45px 0px;
+    padding: 45px 10px;
+  }
+  .personal-experience-inner .content .maintitle {
+    padding: 0px 10px;
   }
 }
 
-.g-recaptcha {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Il contenitore occupa il 100% */
-}
+

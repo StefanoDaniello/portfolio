@@ -11949,6 +11949,20 @@ body.template-color-1 {
   display: none;
 }
 
+.btn-404 {
+  background-color: #ff014dba;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+.btn-404:hover {
+  color: white;
+  background-color: #ff014f;
+}
+
 .home-sticky .header-wrapper .header-right i.feather-menu {
   display: block;
   margin-top: -10px;

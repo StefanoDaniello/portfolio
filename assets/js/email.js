@@ -88,6 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
       updateSubmitButtonState(); // Aggiorna lo stato del pulsante dopo il reset
     } catch (error) {
       console.error("Errore nell'invio dell'email:", error);
+      const aziendaMessage = document.getElementById("aziendaMessage");
+      aziendaMessage.textContent =
+        "Si è verificato un errore durante l'invio. Riprova.";
       aziendaMessage.style.color = "red"; // Messaggio di errore rosso
       // Riabilita il pulsante in caso di errore
       inviaButton.disabled = false;
@@ -98,35 +101,35 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     form.dispatchEvent(new Event("submit"));
   });
-});
 
-//-------------------------------------------
+  //-------------------------------------------
 
-// Ottieni tutti i campi obbligatori
-const inputs = form.querySelectorAll("input, textarea");
+  // Ottieni tutti i campi obbligatori
+  const inputs = form.querySelectorAll("input, textarea");
 
-// Aggiungi ascoltatori su ogni campo
-inputs.forEach((input) => {
-  input.addEventListener("input", updateSubmitButtonState);
-});
+  // Aggiungi ascoltatori su ogni campo
+  inputs.forEach((input) => {
+    input.addEventListener("input", updateSubmitButtonState);
+  });
 
-// Inizializza lo stato del pulsante al caricamento della pagina
-// Questo deve essere chiamato DOPO che lo script reCAPTCHA è caricato
-// e il widget è stato renderizzato.
-// reCAPTCHA ha un callback `onload` o puoi usare `grecaptcha.ready`
-grecaptcha.ready(function () {
-  updateSubmitButtonState();
-});
+  // Inizializza lo stato del pulsante al caricamento della pagina
+  // Questo deve essere chiamato DOPO che lo script reCAPTCHA è caricato
+  // e il widget è stato renderizzato.
+  // reCAPTCHA ha un callback `onload` o puoi usare `grecaptcha.ready`
+  grecaptcha.ready(function () {
+    updateSubmitButtonState();
+  });
 
-// Funzione chiamata da reCAPTCHA quando la verifica è completata
-// (per reCAPTCHA v2 "Non sono un robot")
-window.recaptchaCallback = function () {
-  updateSubmitButtonState();
-};
+  // Funzione chiamata da reCAPTCHA quando la verifica è completata
+  // (per reCAPTCHA v2 "Non sono un robot")
+  window.recaptchaCallback = function () {
+    updateSubmitButtonState();
+  };
 
-// Disabilita invio form se non valido (opzionale ma consigliato)
-form.addEventListener("submit", function (e) {
-  if (button.disabled) {
-    e.preventDefault();
-  }
+  // Disabilita invio form se non valido (opzionale ma consigliato)
+  form.addEventListener("submit", function (e) {
+    if (button.disabled) {
+      e.preventDefault();
+    }
+  });
 });

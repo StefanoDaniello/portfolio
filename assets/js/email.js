@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Il pulsante è abilitato solo se tutti i campi sono validi E reCAPTCHA è verificato
     inviaButton.disabled = !(formFieldsValid && recaptchaVerified);
+    console.log(
+      `Form Fields Valid: ${formFieldsValid}, reCAPTCHA Verified: ${recaptchaVerified}, Button Disabled: ${inviaButton.disabled}`
+    );
   }
 
   form.addEventListener("submit", async function (event) {
@@ -123,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Funzione chiamata da reCAPTCHA quando la verifica è completata
   // (per reCAPTCHA v2 "Non sono un robot")
   window.recaptchaCallback = function () {
+    console.log("reCAPTCHA callback fired!");
     updateSubmitButtonState();
   };
 

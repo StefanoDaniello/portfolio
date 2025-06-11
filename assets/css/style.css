@@ -6304,8 +6304,6 @@ form {
   .g-recaptcha {
     transform: scale(0.6); /* Riduci a circa 234px */
     -webkit-transform: scale(0.6);
-    transform-origin: 0 0; /* Punto di origine della trasformazione */
-    -webkit-transform-origin: 0 0;
   }
 }
 
@@ -6314,15 +6312,13 @@ form {
   .g-recaptcha {
     transform: scale(0.85); /* Riduci a circa 258px */
     -webkit-transform: scale(0.85);
-    transform-origin: 0 0;
-    -webkit-transform-origin: 0 0;
   }
 }
 
 /* Su schermi più grandi (dove 304px va bene), non applichiamo nessuna trasformazione o la resetteremo */
 @media (min-width: 768px) {
   /* Per tablet e desktop */
-  .g-recaptcha-wrapper .g-recaptcha {
+  .g-recaptcha {
     transform: none; /* Resetta la scalatura se non necessaria */
     -webkit-transform: none;
   }

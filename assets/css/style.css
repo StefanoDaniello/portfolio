@@ -18365,7 +18365,7 @@ span.sr-only {
 
 .contact-form-wrapper .introduce {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .contact-form-wrapper .introduce input {
@@ -23009,4 +23009,11 @@ input[type="number"] {
     max-width: 60vw;
     margin-right: 10px;
   }
+}
+
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Il contenitore occupa il 100% */
 }

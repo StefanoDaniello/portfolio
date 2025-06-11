@@ -8030,7 +8030,19 @@ textarea:-ms-input-placeholder {
   margin-top: 0 !important;
   padding-top: 0;
 }
+.header-info-content .title {
+  font-size: 29px;
+  margin-bottom: 10px;
+}
 
+h2.title {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+h3.title {
+  font-size: 26px;
+  margin-bottom: 30px;
+}
 .social-share-style-1 .title {
   font-size: 14px;
   text-transform: uppercase;
@@ -15037,6 +15049,7 @@ figcaption {
 .rn-content-wrapper .header-left .header-info-content .status-info {
   font-size: 18px;
   font-weight: 500;
+  margin-bottom: 0px;
 }
 
 .rn-content-wrapper .header-left::before {
@@ -16038,7 +16051,7 @@ div#featured-project-carousel {
   .inner
   .heading
   .title
-  h4 {
+  h3 {
   color: var(--color-lightn);
   font-family: var(--font-primary);
   font-size: 24px;
@@ -16055,7 +16068,7 @@ div#featured-project-carousel {
     .inner
     .heading
     .title
-    h4 {
+    h3 {
     font-size: 21px;
     line-height: 34px;
   }
@@ -16125,6 +16138,15 @@ div#featured-project-carousel {
 
 .personal-experience-inner .experience-list .resume-single-list:hover {
   background: #212427;
+}
+.personal-experience-inner
+  .experience-list
+  .resume-single-list:hover
+  .inner
+  .heading
+  .title
+  h3 {
+  color: var(--color-white);
 }
 
 .personal-experience-inner
@@ -19060,7 +19082,7 @@ span.sr-only {
 }
 
 .service-card-one .inner p.describe {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 28px;
 }
 
@@ -20905,6 +20927,9 @@ body.white-version .rn-btn-ulderline {
   .content
   .maintitle {
   color: var(--color-heading-wv);
+}
+h2.maintitle {
+  font-size: 36px;
 }
 
 .white-version

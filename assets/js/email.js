@@ -116,12 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // --- CALLBACK DI RECAPTCHA: Chiamata quando l'API è caricata e pronta ---
-  window.recaptchaLoaded = function () {
-    console.log("reCAPTCHA API caricata e pronta!");
-    // Questa funzione viene chiamata quando l'API è pronta.
-    // Ora, `grecaptcha.getResponse()` dovrebbe essere disponibile.
-    updateSubmitButtonState(); // Inizializza lo stato del pulsante
-  };
+  // window.recaptchaLoaded = function () {
+  //   console.log("reCAPTCHA API caricata e pronta!");
+  //   // Questa funzione viene chiamata quando l'API è pronta.
+  //   // Ora, `grecaptcha.getResponse()` dovrebbe essere disponibile.
+  //   updateSubmitButtonState(); // Inizializza lo stato del pulsante
+  // };
 
   // --- CALLBACK DI RECAPTCHA: Chiamata quando l'utente completa la verifica ---
   window.recaptchaVerified = function (response) {

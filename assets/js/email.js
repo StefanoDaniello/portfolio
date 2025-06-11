@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Il pulsante è abilitato solo se tutti i campi sono validi E reCAPTCHA è verificato
     inviaButton.disabled = !(formFieldsValid && recaptchaVerified);
-    console.log(
-      `Form Fields Valid: ${formFieldsValid}, reCAPTCHA Verified: ${recaptchaVerified}, Button Disabled: ${inviaButton.disabled}`
-    );
+    // console.log(
+    //   `Form Fields Valid: ${formFieldsValid}, reCAPTCHA Verified: ${recaptchaVerified}, Button Disabled: ${inviaButton.disabled}`
+    // );
   }
 
   form.addEventListener("submit", async function (event) {
@@ -115,14 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("input", updateSubmitButtonState);
   });
 
-  // --- CALLBACK DI RECAPTCHA: Chiamata quando l'API è caricata e pronta ---
-  // window.recaptchaLoaded = function () {
-  //   console.log("reCAPTCHA API caricata e pronta!");
-  //   // Questa funzione viene chiamata quando l'API è pronta.
-  //   // Ora, `grecaptcha.getResponse()` dovrebbe essere disponibile.
-  //   updateSubmitButtonState(); // Inizializza lo stato del pulsante
-  // };
-
   // --- CALLBACK DI RECAPTCHA: Chiamata quando l'utente completa la verifica ---
   window.recaptchaVerified = function (response) {
     console.log("reCAPTCHA verificato con successo! Token:", response);
@@ -136,11 +128,4 @@ document.addEventListener("DOMContentLoaded", function () {
     console.warn("reCAPTCHA token scaduto. Per favore, rifai la verifica.");
     updateSubmitButtonState(); // Disabilita il pulsante o chiedi nuova verifica
   };
-
-  // Disabilita invio form se non valido (opzionale ma consigliato)
-  form.addEventListener("submit", function (e) {
-    if (button.disabled) {
-      e.preventDefault();
-    }
-  });
 });

@@ -15874,13 +15874,13 @@ div#featured-project-carousel {
 
 @media only screen and (max-width: 575px) {
   .personal-experience-inner .content .maintitle {
-    font-size: 30px;
+    font-size: 24px;
   }
 }
 
 @media only screen and (max-width: 479px) {
   .personal-experience-inner .content .maintitle {
-    font-size: 24px;
+    font-size: 20px;
   }
 }
 
@@ -23008,6 +23008,9 @@ input[type="number"] {
   .attestato {
     max-width: 60vw;
     margin-right: 10px;
+  }
+  .tab-content-wrapper .tab-content {
+    padding: 45px 0px;
   }
 }
 

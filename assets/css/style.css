@@ -6293,7 +6293,7 @@ form {
 
 .g-recaptcha {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   width: 100%; /* Il contenitore occupa il 100% */
 }
@@ -12008,7 +12008,7 @@ body.template-color-1 {
 
 .btn-404:hover {
   color: white;
-  background-color: #ff014f;
+  background-color: var(--color-primary);
 }
 
 .home-sticky .header-wrapper .header-right i.feather-menu {
@@ -13663,7 +13663,7 @@ figcaption {
 }
 
 .section-title span.subtitle {
-  color: #ff014f;
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 14px;
@@ -13855,7 +13855,7 @@ figcaption {
 }
 
 .slide .content .inner .title span {
-  color: #ff014f;
+  color: var(--color-primary);
 }
 
 .slide .content .inner .title .header-caption span {
@@ -14679,7 +14679,7 @@ figcaption {
 }
 
 .banner-details-wrapper-sticky .banner-title-area .title span {
-  color: #ff014f;
+  color: var(--color-primary);
 }
 
 @media only screen and (max-width: 575px) {
@@ -15895,7 +15895,7 @@ div#featured-project-carousel {
 
 .rn-nav-list .nav-item .nav-link:hover,
 .rn-nav-list .nav-item .nav-link.active {
-  color: #ff014f;
+  color: var(--color-primary);
   background-color: transparent;
   border-color: transparent;
   border: 0 none;

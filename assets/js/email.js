@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    console.log("Submit button clicked");
+    // console.log("Submit button clicked");
 
     let formValid = true;
     let firstInvalidInput = null; // Per lo scroll
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // --- CALLBACK DI RECAPTCHA: Chiamata quando l'utente completa la verifica ---
   window.recaptchaVerified = function (response) {
-    console.log("reCAPTCHA verificato con successo! Token:", response);
+    // console.log("reCAPTCHA verificato con successo! Token:", response);
     // Questo `response` è il token, ma lo prendiamo da grecaptcha.getResponse()
     // per coerenza nella funzione updateSubmitButtonState.
     updateSubmitButtonState(); // Aggiorna lo stato del pulsante dopo la verifica

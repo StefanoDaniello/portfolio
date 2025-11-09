@@ -88,10 +88,10 @@ document.addEventListener("DOMContentLoaded", function () {
       updateSubmitButtonState(); // Aggiorna lo stato del pulsante
     });
     // Quando l'utente esce dal campo, facciamo la validazione e aggiorniamo lo stato
-    input.addEventListener("blur", function () {
-      validateInput(input);
-      updateSubmitButtonState(); // Aggiorna lo stato del pulsante
-    });
+    // input.addEventListener("blur", function () {
+    //   validateInput(input);
+    //   updateSubmitButtonState(); // Aggiorna lo stato del pulsante
+    // });
   });
 
   form.addEventListener("submit", async function (event) {

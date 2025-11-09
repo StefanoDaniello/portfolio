@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
   inputs.forEach((input) => {
     input.addEventListener("input", function () {
       hideError(input); // Nascondi l'errore appena l'utente digita
-      updateSubmitButtonState(); // Aggiorna lo stato del pulsante
     });
     // Quando l'utente esce dal campo, facciamo la validazione e aggiorniamo lo stato
     // input.addEventListener("blur", function () {

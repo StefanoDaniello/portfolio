@@ -78,9 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Imposta il pulsante come disabilitato all'inizio
-  updateSubmitButtonState();
-
   // Aggiungi ascoltatori di input per nascondere gli errori in tempo reale
   inputs.forEach((input) => {
     input.addEventListener("input", function () {

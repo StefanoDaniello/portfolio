@@ -175,12 +175,12 @@ document.addEventListener("DOMContentLoaded", function () {
       aziendaMessage.textContent = "Informazioni inviate con successo!";
       aziendaMessage.style.color = "green";
 
+      updateSubmitButtonState(); // Aggiorna lo stato del pulsante dopo il reset
+
       // Pulisci i campi
       inputs.forEach((input) => (input.value = ""));
-
       // Resetta reCAPTCHA e riabilita/disabilita il pulsante
       grecaptcha.reset();
-      updateSubmitButtonState(); // Aggiorna lo stato del pulsante dopo il reset
     } catch (error) {
       console.error("Errore nell'invio dell'email:", error);
       const aziendaMessage = document.getElementById("aziendaMessage");

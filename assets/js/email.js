@@ -51,15 +51,47 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
 
+  /**
+   * Controlla se tutti gli input sono validi e se reCAPTCHA è completo.
+   * Abilita o disabilita il pulsante di invio di conseguenza.
+   */
+  function updateSubmitButtonState() {
+    let allInputsValid = true;
+
+    // Controlla la validità di tutti gli input
+    inputs.forEach((input) => {
+      // Usiamo 'validateInput' per controllare se i campi sono compilati correttamente.
+      if (!validateInput(input)) {
+        allInputsValid = false;
+      }
+    });
+
+    // Controlla reCAPTCHA. Se grecaptcha non è caricato, lo consideriamo non valido.
+    const recaptchaComplete =
+      typeof grecaptcha !== "undefined" && grecaptcha.getResponse() !== "";
+
+    // Se tutti i campi sono validi E reCAPTCHA è completo, abilita il pulsante.
+    if (allInputsValid && recaptchaComplete) {
+      inviaButton.disabled = false;
+    } else {
+      inviaButton.disabled = true;
+    }
+  }
+
+  // Imposta il pulsante come disabilitato all'inizio
+  updateSubmitButtonState();
+
   // Aggiungi ascoltatori di input per nascondere gli errori in tempo reale
   inputs.forEach((input) => {
     input.addEventListener("input", function () {
       hideError(input); // Nascondi l'errore appena l'utente digita
+      updateSubmitButtonState(); // Aggiorna lo stato del pulsante
     });
-    // Puoi anche aggiungere un listener 'blur' per validare quando l'utente esce dal campo
-    // input.addEventListener('blur', function() {
-    //   validateInput(input);
-    // });
+    // Quando l'utente esce dal campo, facciamo la validazione e aggiorniamo lo stato
+    input.addEventListener("blur", function () {
+      validateInput(input);
+      updateSubmitButtonState(); // Aggiorna lo stato del pulsante
+    });
   });
 
   form.addEventListener("submit", async function (event) {
